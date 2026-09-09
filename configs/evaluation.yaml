@@ -1,0 +1,3 @@
+manifest: examples/synthetic/manifest.json
+split: test
+output: reports/baseline.json

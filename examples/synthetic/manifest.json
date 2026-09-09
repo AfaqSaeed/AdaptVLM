@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "synthetic-shapes",
+  "synthetic": true,
+  "source": "Locally generated software fixtures; not research evidence",
+  "examples": [
+    {
+      "id": "fixture-0",
+      "image": "0.png",
+      "question": "What color is the shape?",
+      "answers": [
+        "blue"
+      ],
+      "category": "attribute",
+      "split": "train"
+    },
+    {
+      "id": "fixture-1",
+      "image": "1.png",
+      "question": "What color is the shape?",
+      "answers": [
+        "green"
+      ],
+      "category": "attribute",
+      "split": "validation"
+    },
+    {
+      "id": "fixture-2",
+      "image": "2.png",
+      "question": "What color is the shape?",
+      "answers": [
+        "red"
+      ],
+      "category": "attribute",
+      "split": "test"
+    },
+    {
+      "id": "fixture-3",
+      "image": "3.png",
+      "question": "What color is the shape?",
+      "answers": [
+        "yellow"
+      ],
+      "category": "attribute",
+      "split": "test"
+    }
+  ]
+}
