@@ -1,0 +1,11 @@
+# Set adapter_path to a completed train_sft.py output directory.
+backend: transformers
+model_id: HuggingFaceTB/SmolVLM-256M-Instruct
+revision: main
+family: smolvlm
+device: cpu
+dtype: float32
+max_new_tokens: 32
+seed: 42
+prompt_suffix: " Answer with a short word or phrase."
+adapter_path: outputs/sft-run-001

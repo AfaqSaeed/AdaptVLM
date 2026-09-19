@@ -1,0 +1,9 @@
+backend: transformers
+model_id: Qwen/Qwen2.5-VL-3B-Instruct
+revision: main
+family: qwen2_5_vl
+device: cuda
+dtype: float16
+max_new_tokens: 32
+seed: 42
+prompt_suffix: " Answer with a short word or phrase."

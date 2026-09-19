@@ -1,0 +1,9 @@
+backend: mock
+model_id: fixture-only
+revision: local
+family: smolvlm
+device: cpu
+dtype: float32
+max_new_tokens: 32
+seed: 42
+prompt_suffix: ""

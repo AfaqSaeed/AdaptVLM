@@ -1,0 +1,9 @@
+backend: transformers
+model_id: HuggingFaceTB/SmolVLM-256M-Instruct
+revision: main
+family: smolvlm
+device: cpu
+dtype: float32
+max_new_tokens: 32
+seed: 42
+prompt_suffix: " Answer with a short word or phrase."
