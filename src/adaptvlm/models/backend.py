@@ -25,22 +25,33 @@ class TransformersBackend:
         if config.device == "cuda" and not torch.cuda.is_available():
             raise RuntimeError("CUDA is unavailable. Select device: cpu or install CUDA PyTorch.")
         from adaptvlm.training.adapter import adapter_revision
+        from adaptvlm.models.quantization import (
+            quantization_support,
+            bnb_loading_kwargs,
+            dynamic_quantize,
+        )
+
+        support = quantization_support(config)
+        if not support["supported"]:
+            raise ValueError("Unsupported quantization: " + "; ".join(support["reasons"]))
 
         revision, self.adapter_metadata = adapter_revision(config)
         self.processor = AutoProcessor.from_pretrained(
             config.model_id, revision=revision, trust_remote_code=False
         )
-        self.model = (
-            AutoModelForImageTextToText.from_pretrained(
-                config.model_id,
-                revision=revision,
-                torch_dtype=getattr(torch, config.dtype),
-                trust_remote_code=False,
-                attn_implementation="eager",
-            )
-            .to(config.device)
-            .eval()
+        quantized_loading = config.quantization in {"bnb_int8", "bnb_nf4"}
+        kwargs = bnb_loading_kwargs(config) if quantized_loading else {}
+        self.model = AutoModelForImageTextToText.from_pretrained(
+            config.model_id,
+            revision=revision,
+            torch_dtype=getattr(torch, config.dtype),
+            trust_remote_code=False,
+            attn_implementation="eager",
+            **kwargs,
         )
+        if not quantized_loading:
+            self.model = self.model.to(config.device)
+        self.model.eval()
         self.resolved_revision = getattr(self.model.config, "_commit_hash", None)
         if config.adapter_path:
             from peft import PeftModel
@@ -48,6 +59,22 @@ class TransformersBackend:
             self.model = PeftModel.from_pretrained(
                 self.model, config.adapter_path, is_trainable=False
             ).eval()
+        self.quantization_details = {"mode": config.quantization, "adapter_merged": False}
+        if config.quantization == "dynamic_int8":
+            self.model, count = dynamic_quantize(self.model)
+            self.quantization_details.update(
+                converted_linear_layers=count, adapter_merged=config.adapter_path is not None
+            )
+        elif quantized_loading:
+            import bitsandbytes as bnb
+
+            count = sum(
+                isinstance(m, (bnb.nn.Linear8bitLt, bnb.nn.Linear4bit))
+                for m in self.model.modules()
+            )
+            if not count:
+                raise ValueError("bitsandbytes did not convert any layers")
+            self.quantization_details["converted_linear_layers"] = count
 
     def generate(self, image: Image.Image, question: str, config: ModelConfig) -> str:
         import torch

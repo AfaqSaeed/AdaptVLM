@@ -100,6 +100,7 @@ def main(argv: list[str] | None = None) -> int:
                 "device",
                 "dtype",
                 "adapter_path",
+                "quantization",
             )
             if all(
                 getattr(engine.config, f) == getattr(comparison_config, f) for f in loading_fields

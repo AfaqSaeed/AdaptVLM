@@ -18,8 +18,13 @@ class ModelConfig:
     seed: int = 42
     prompt_suffix: str = " Answer with a short word or phrase."
     adapter_path: str | None = None
+    quantization: str = "none"
 
     def __post_init__(self):
+        if self.quantization not in {"none", "dynamic_int8", "bnb_int8", "bnb_nf4"}:
+            raise ValueError("Unknown quantization mode")
+        if self.backend == "mock" and self.quantization != "none":
+            raise ValueError("Mock models cannot measure quantization")
         if self.adapter_path is not None and (
             self.backend == "mock" or not self.adapter_path.strip()
         ):
