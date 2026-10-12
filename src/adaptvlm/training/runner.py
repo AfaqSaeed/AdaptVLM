@@ -141,6 +141,8 @@ def train_sft(
         raise ValueError("SFT supports the real SmolVLM/Idefics3 backend only")
     if model_config.adapter_path:
         raise ValueError("Phase 3 trains a fresh adapter; resuming/stacking is unsupported")
+    if model_config.quantization != "none":
+        raise ValueError("SFT quantized training is unsupported; quantization is inference-only")
     if model_config.dtype == "float16":
         raise ValueError(
             "Use float32 or supported CUDA bfloat16 for training; FP16 scaling is not implemented"
@@ -178,6 +180,7 @@ def train_sft(
         "schema_version": 1,
         "created_at": datetime.now(UTC).isoformat(),
         "status": "complete",
+        "method": "sft",
         "software_test_only": False,
         "model_config": model_config.to_dict(),
         "training_config": asdict(config),
@@ -185,6 +188,9 @@ def train_sft(
         "local_base_sha256": local_hash,
         "dataset": dataset,
         "training_image_hashes": sorted({r["image_sha256"] for r in examples}),
+        "training_example_keys": sorted(
+            {r["image_sha256"] + ":" + r["question"] for r in examples}
+        ),
         "environment": {
             "python": platform.python_version(),
             "platform": platform.platform(),

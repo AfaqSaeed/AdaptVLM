@@ -1,8 +1,8 @@
-# Phase 3 verification — 2026-11-04
+# Phase 3 verification â€” 2026-11-04
 
 Implemented correction-to-SFT conversion, language-projection LoRA training, separate adapter
 save/load with provenance validation, matched baseline/adapted evaluation and regression reports.
-Phase 4 preference optimization was not implemented.
+Phase 4 was subsequently implemented after approval; see [Phase 4 verification](phase4-verification.md).
 
 ## Executed checks
 
