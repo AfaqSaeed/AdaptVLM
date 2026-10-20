@@ -1,0 +1,15 @@
+manifest: ../examples/synthetic/manifest.json
+split: test
+warmup_requests: 2
+repeats: 5
+order_seed: 42
+variants:
+  - name: cuda-fp16
+    model_config: model.yaml
+    overrides: {device: cuda, dtype: float16}
+  - name: cuda-int8
+    model_config: model.yaml
+    overrides: {device: cuda, dtype: float16, quantization: bnb_int8}
+  - name: cuda-nf4
+    model_config: model.yaml
+    overrides: {device: cuda, dtype: float16, quantization: bnb_nf4}

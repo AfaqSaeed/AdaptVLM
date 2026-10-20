@@ -1,0 +1,21 @@
+manifest: ../data/vqa-small/manifest.json
+split: test
+warmup_requests: 2
+repeats: 5
+order_seed: 42
+variants:
+  - name: baseline
+    model_config: model.yaml
+  - name: adapted
+    model_config: model.yaml
+    overrides:
+      adapter_path: ../outputs/sft-run-001
+  - name: quantized-baseline
+    model_config: model.yaml
+    overrides:
+      quantization: dynamic_int8
+  - name: quantized-adapted
+    model_config: model.yaml
+    overrides:
+      adapter_path: ../outputs/sft-run-001
+      quantization: dynamic_int8

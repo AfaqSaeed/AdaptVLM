@@ -7,6 +7,15 @@ __pycache__/
 data/
 outputs/
 reports/*.json
+reports/*.xml
+reports/**/benchmark.json
+reports/**/request-*.json
+reports/**/run-*.json
+reports/**/worker-*.log
+reports/**/summary.csv
+reports/**/latency-quality.png
+reports/**/gpu-memory-quality.png
+reports/**/state-size-quality.png
 *.safetensors
 *.pt
 *.bin

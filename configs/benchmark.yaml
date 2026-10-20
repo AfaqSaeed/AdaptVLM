@@ -1,0 +1,13 @@
+# Paths are relative to this YAML file. Batch size is explicitly fixed to 1.
+manifest: ../examples/synthetic/manifest.json
+split: test
+warmup_requests: 1
+repeats: 3
+order_seed: 42
+variants:
+  - name: baseline-fp32
+    model_config: model.yaml
+  - name: baseline-dynamic-int8
+    model_config: model.yaml
+    overrides:
+      quantization: dynamic_int8
