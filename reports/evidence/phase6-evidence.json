@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-04T15:47:43.447987+00:00",
+  "classification": "software-validation-only",
+  "research_hypotheses_tested": false,
+  "source_fingerprint": "4c92f572923b0eba439796ae0938266c928e06a69d61beaf1244f491c5d33ece",
+  "source_files": {
+    "src/adaptvlm/__init__.py": "2a9538a6683d9a0f296e111982cee1ecdfc7add887e4c766cde216be748065c0",
+    "src/adaptvlm/benchmarking/__init__.py": "8e4642c6fc4b3de924f08d0204e47739aee07a08abe09315f18b37425764704a",
+    "src/adaptvlm/benchmarking/reporting.py": "4a858d345845066d823c361aee6d0a142a6ec0fab1566030836997a3a0fc9e2a",
+    "src/adaptvlm/benchmarking/runner.py": "ea26eae6a7e7aec180b68eeb645ad64f0ba044681401af8d93fae170e2097f04",
+    "src/adaptvlm/benchmarking/worker.py": "c84db7538bc9d2196ef2ba01b54e44d3c84c4329a8884ff2450e8d78c168eb7b",
+    "src/adaptvlm/cli.py": "e5d0fdb81a77351b77dd2047d0b032a6f31348ce29024bb9ca99c3c72c4e88fb",
+    "src/adaptvlm/config.py": "9cd85dad5cb302ba561257d1ce30a4a9b0e3c24d311020b41058855b35d54dff",
+    "src/adaptvlm/dashboard/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/adaptvlm/dashboard/app.py": "08514955848efae945d9750d67ea51d9655465e9369d7f9fadfebd4e56ac8878",
+    "src/adaptvlm/dashboard/experiments.py": "7009942576c7647cc91c52b9368028dfa1451a58e64a7862a1bc16b06be89c8e",
+    "src/adaptvlm/datasets/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/adaptvlm/datasets/manifest.py": "48c6aa16ca79cb913b31bde6ab7aeb1b3ea3b9d5a863723ee13fb60031cfbbc5",
+    "src/adaptvlm/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/adaptvlm/evaluation/comparison.py": "6db7ff46d406bc4e83f42d1c157ddcee99bf2ca680e5b78c06010cf0db8074e2",
+    "src/adaptvlm/evaluation/methods.py": "dd39741185fff0dd6052fb31c83e6e80bb4a21c9ef4ea15f48b8ffe258cb2b03",
+    "src/adaptvlm/evaluation/runner.py": "08fefd2a0c2c1f88d2b87a34f75dcc2d43ce2af3291c124c8072470f088a6e1b",
+    "src/adaptvlm/feedback/__init__.py": "3e31f5b9d79d5781159a0bc13e82acbe36784a94b39a2a3d614765f395ec3f67",
+    "src/adaptvlm/feedback/service.py": "8e08ad722d1b5408fe7f895421a8519e80070233587f0ec799e0d4473f4823b9",
+    "src/adaptvlm/feedback/store.py": "fd08305a5ceaa1db6e9f85f4d1fd5ada1f6e27b59220d3316628ff9c4220ab06",
+    "src/adaptvlm/feedback/validation.py": "5d059bfc5c3c68c7264cb596dada415f04dedec60a5b105bc3196c0068116b37",
+    "src/adaptvlm/inference/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/adaptvlm/inference/engine.py": "2b4ab461eb328d816a6854c8cf9c4a8219d9529436b9443ee97648c89f111a05",
+    "src/adaptvlm/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/adaptvlm/models/backend.py": "e6bc2267e9deb9796592c8c78e4383f7f3882d78ee7c82b40a82be86c794e2c9",
+    "src/adaptvlm/models/quantization.py": "c84fa01f498745f68c333d7d8d9f881ae30120aa18302603c160be090c66f608",
+    "src/adaptvlm/training/__init__.py": "dddf147dc4810d8c26805f7c867dadce93e4e2456131aa47fca687ac42db0d01",
+    "src/adaptvlm/training/adapter.py": "48d20f203bd775e6abc32ae3d0e585407a8031e133d53963288e58339de0970e",
+    "src/adaptvlm/training/collator.py": "6a1ec435f2d9272a13b241117d069a2e909dff5df577132037e40cce274670bd",
+    "src/adaptvlm/training/config.py": "84a99a4e9d9f11517aeaa96a167b79a1fd115a8ea9848036bc65ddf8d4bc7b48",
+    "src/adaptvlm/training/data.py": "2aa7404f4a44fc9c7220fd75fd7051a483d739d664271177ece0603adb28b793",
+    "src/adaptvlm/training/dpo.py": "cf5e0cc222b0da1ffa09842660aece0f46c5028370088b46e0b1c55593f44d89",
+    "src/adaptvlm/training/preferences.py": "96455a2235aafa5b3d995f40b5e429cafe1abbb3d8c7a14946936be55a68194c",
+    "src/adaptvlm/training/runner.py": "91bcd82ae442c7711f3cd91db751a227bc6ffc3eecaa3b45f8f930ccceb25575",
+    "src/adaptvlm/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/test_baseline.py": "0a740b9defdc13644b61295ac0e511c4f285a571ab9b86f112d17238da980743",
+    "tests/test_benchmark.py": "a4746f30e779115a70c0fa5ec45d90a97c3cefd1391c7595d52627dc8ac5574b",
+    "tests/test_dpo.py": "2620be4137b9d78145a1625f4a707aab4c0f552733157b4f5e4176ed169a6f4c",
+    "tests/test_feedback.py": "63d3ed9aa2731e9f387e502696f5a54a27df4c82fe70d81f9d830b757d41bc2b",
+    "tests/test_feedback_ui.py": "972bc6db1c30d2921d4e838db81ad154d5a05a8b1f07da2fe03691afa6b3bb1d",
+    "tests/test_importer.py": "c02730a61f6cf830bf6bd2f875a1af5e6c5e55f3d1ec7b61303fee6ba98f7080",
+    "tests/test_model_backend.py": "981e11596d8fc1d3c199474b35b734315dd90d0c93f0bdff0bf8a869c4a819c4",
+    "tests/test_training.py": "9fca3e57e99ba496f1c8bd8f39d2d682d983b6e2757acc52a3e8394cacbc4dc8",
+    "scripts/benchmark.py": "8b60d832f6f702c27c768035ef3a04898a5f613c12a1b5a4e2da73c557dbc95b",
+    "scripts/build_report_evidence.py": "5fb20cf6f9bffe749dfacf399791fbb12f37c2980dfa23b7a451471a69eb4b0a",
+    "scripts/compare_adapter.py": "c02780d6fec9bb4acf9b6cc218533c4febdeb716fdd3745cae996878bdb9dd38",
+    "scripts/compare_methods.py": "381d010454f3899d3169f7d16ae0aa2031a02e9faf57291a3b1d8a5566901787",
+    "scripts/evaluate.py": "1eb918cd2d44f1c771f52b19bc75b5d5d5862f5b1eccedd5d4d1f00f3e453872",
+    "scripts/launch_app.py": "66e1c5cfbe0a11ceeb9fffb1fdf72504bfd50a14653df35217facf5006e1a7fb",
+    "scripts/launch_experiments.py": "fa991a58a39c7bd0b9f6c662a0e4d4ac51ffabe9b6e7123f5d77963b1358609b",
+    "scripts/manage_feedback.py": "39a907a324a7c5074c7f97b8ff56537360c163bbe0e756a873836044f7e04cd5",
+    "scripts/prepare_preferences.py": "eea0ff4a7fc667d9e6c6f92cb3db19049445644a1aacf12dadee9c793a21cbeb",
+    "scripts/prepare_sft.py": "0c02ac415d01c9072e5b3ef410ba006e54eadcf5d4c9feb6375fa99f10eb767a",
+    "scripts/prepare_vqav2.py": "edccc56044006113438757e96454d2aedbf83405f544add3c13894fb0f41b616",
+    "scripts/run_inference.py": "55a759fed8955d7a72d60fccbe404fa58586fa656618a35c6500dfefeea6ca27",
+    "scripts/train_dpo.py": "2f752aa77c629596ef6cb86f02643bb9b8ebe27d323ab265b7f3c4c0ef4d2a6a",
+    "scripts/train_sft.py": "d2a5e59e02893965d316c3557c6a800049321b53e1523c047301f4d55691573f",
+    "configs/adapted.example.yaml": "aa3f716b61cb157e4fb38cb31e838009dd19e86ae225a94c10032d2774114bf5",
+    "configs/benchmark-adapters.example.yaml": "2411e705a193a99650339e6b84a173ff96b370778e62dab251ffad13591265ec",
+    "configs/benchmark-cuda.example.yaml": "2c69baced5a126d9b129170929996a35df61b398c6e470485df7fb7c786e9f63",
+    "configs/benchmark.yaml": "ec68c323ad2b48102843d7e614cd86da243e3595dc46429be2f195c87135c8bb",
+    "configs/comparison.yaml": "6574e47cbfe461b881fa4bf04a38eff3299b42a2894d6e3d9507db9741c2ade7",
+    "configs/dpo.yaml": "c90689e0c09d7835f5bc828e14c9220969d6a4702ff4b136617d214cc17450f6",
+    "configs/evaluation.yaml": "a6f907675bbf6e44d1697a66fc20113c7cf253dab5d3894db90119f3286c4e47",
+    "configs/mock.yaml": "9c1e083a8d99047d246dfd34974572c26677ddeed1ed33c348fbc79feecd4759",
+    "configs/model.yaml": "c89147059261319f73d8086c55a668b23576d3fa46ae4d0a6dd801ff598bda7a",
+    "configs/qwen.yaml": "986176591458ef94344ce10709b3ab38e70f678dc06cc8e86e9fcb489ad3c15e",
+    "configs/sft.yaml": "e9842a46aab445d62a85f9dbf622a6aed105ce407047a0a2cdab9a20bf50ddd5",
+    "examples/synthetic/0.png": "52cbb32d5c6aa85c3b115a0ac7f2f288d0fae62060aa2de2a9adf823471e0477",
+    "examples/synthetic/1.png": "a4ff0377413534602fb91bcdd91d4cb8599951e5213a9c9d15207b1781c8e6f1",
+    "examples/synthetic/2.png": "caa1d2a6ba43129e4f961350f84de0e3b705286fdcfa68abb15489ec35827927",
+    "examples/synthetic/3.png": "3d5a678a86f8bd92872988f55746594c4e3bccf9985e582b046d83abbece4ff8",
+    "examples/synthetic/manifest.json": "65d13bddc920498647e8ce1c439e6bc8a57da47857418cdc2fde7b0f7e7e300a",
+    "pyproject.toml": "25362b5e845a539d4f0d1f6da4dee24d65efeb65206cc7fab4eaabc618c1bb2e",
+    "requirements-tested.txt": "de7b87fd2796d8f8519c04bc57e08a300879ffc10985adaa62ddb99bf8442eec",
+    ".github/workflows/tests.yml": "475dcbd830e57ff49a3d08ed9f46868f53e4be733789bf4bf4e40f175a677dc7"
+  },
+  "git_head": "210354cb826d789b55b58800b8c5b1dc4799a01f",
+  "working_tree_clean": false,
+  "test_run": {
+    "tests": 65,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 65,
+    "junit_sha256": "32c2376a3af135715326b3102aeaad32d54310f5b904f688ed792290495fbb30"
+  },
+  "benchmark": {
+    "source_sha256": "bbf4b0085a7520fab087cbb003499e0e4430cc2b0772bc5e77581404f2483f5d",
+    "created_at": "2026-11-04T10:16:39.033727+00:00",
+    "dataset_sha256": "a13a61e7f4d372abff29936478c737b4bde99b1e20f4908ed1f661a605bacce5",
+    "batch_size": 1,
+    "process_isolation": true,
+    "settings": {
+      "split": "test",
+      "warmup_requests": 1,
+      "repeats": 3,
+      "order_seed": 42,
+      "torch_threads": 1
+    },
+    "results": [
+      {
+        "name": "tiny-dynamic-int8",
+        "status": "completed",
+        "metrics": {
+          "unique_examples": 2,
+          "attempts": 6,
+          "successful_requests": 6,
+          "failures": 0,
+          "exact_match": 0,
+          "normalized_match": 0,
+          "median_latency_seconds": 0.008348899999873538,
+          "p95_latency_seconds": 0.009023524999975052,
+          "successful_requests_per_second": 120.51604972336594,
+          "measurement_seconds": 0.04978590000064287,
+          "peak_gpu_allocated_bytes": null,
+          "peak_gpu_reserved_bytes": null
+        },
+        "model_load_seconds": 5.215768699999899,
+        "serialized_state_bytes": 54931,
+        "quantization": "dynamic_int8",
+        "reason": null,
+        "local_base_sha256": "1d4367bbf4f21aca3b13cff6a0f61e90974b9f73bb1245a0424ca13747691b80",
+        "environment": {
+          "python": "3.11.5",
+          "platform": "Windows-10-10.0.26300-SP0",
+          "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+          "torch_threads": 1,
+          "torch_interop_threads": 6,
+          "quantized_engine": "x86",
+          "packages": {
+            "torch": "2.7.1",
+            "transformers": "4.51.3",
+            "peft": "0.15.2",
+            "bitsandbytes": null,
+            "numpy": "2.4.6",
+            "Pillow": "11.3.0",
+            "accelerate": "1.15.0"
+          },
+          "cuda_runtime": null,
+          "gpu": null
+        },
+        "first_repeat_predictions": [
+          {
+            "id": "fixture-3",
+            "question": "What color is the shape?",
+            "answer": "",
+            "references": [
+              "yellow"
+            ],
+            "error": null
+          },
+          {
+            "id": "fixture-2",
+            "question": "What color is the shape?",
+            "answer": "user",
+            "references": [
+              "red"
+            ],
+            "error": null
+          }
+        ]
+      },
+      {
+        "name": "tiny-float32",
+        "status": "completed",
+        "metrics": {
+          "unique_examples": 2,
+          "attempts": 6,
+          "successful_requests": 6,
+          "failures": 0,
+          "exact_match": 0,
+          "normalized_match": 0,
+          "median_latency_seconds": 0.008018949999495817,
+          "p95_latency_seconds": 0.008880825000233017,
+          "successful_requests_per_second": 124.58911547939805,
+          "measurement_seconds": 0.048158300000068266,
+          "peak_gpu_allocated_bytes": null,
+          "peak_gpu_reserved_bytes": null
+        },
+        "model_load_seconds": 5.269178900000043,
+        "serialized_state_bytes": 76797,
+        "quantization": "none",
+        "reason": null,
+        "local_base_sha256": "1d4367bbf4f21aca3b13cff6a0f61e90974b9f73bb1245a0424ca13747691b80",
+        "environment": {
+          "python": "3.11.5",
+          "platform": "Windows-10-10.0.26300-SP0",
+          "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+          "torch_threads": 1,
+          "torch_interop_threads": 6,
+          "quantized_engine": "x86",
+          "packages": {
+            "torch": "2.7.1",
+            "transformers": "4.51.3",
+            "peft": "0.15.2",
+            "bitsandbytes": null,
+            "numpy": "2.4.6",
+            "Pillow": "11.3.0",
+            "accelerate": "1.15.0"
+          },
+          "cuda_runtime": null,
+          "gpu": null
+        },
+        "first_repeat_predictions": [
+          {
+            "id": "fixture-3",
+            "question": "What color is the shape?",
+            "answer": "",
+            "references": [
+              "yellow"
+            ],
+            "error": null
+          },
+          {
+            "id": "fixture-2",
+            "question": "What color is the shape?",
+            "answer": "user",
+            "references": [
+              "red"
+            ],
+            "error": null
+          }
+        ]
+      },
+      {
+        "name": "unsupported-nf4-cpu",
+        "status": "unsupported",
+        "metrics": null,
+        "model_load_seconds": null,
+        "serialized_state_bytes": null,
+        "quantization": "bnb_nf4",
+        "reason": "bitsandbytes experiments require CUDA-enabled PyTorch and a CUDA GPU; Install the quantization extra (bitsandbytes==0.45.5); found None",
+        "local_base_sha256": null,
+        "environment": {
+          "python": "3.11.5",
+          "platform": "Windows-10-10.0.26300-SP0",
+          "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+          "torch_threads": 1,
+          "torch_interop_threads": 6,
+          "quantized_engine": "x86",
+          "packages": {
+            "torch": "2.7.1",
+            "transformers": "4.51.3",
+            "peft": "0.15.2",
+            "bitsandbytes": null,
+            "numpy": "2.4.6",
+            "Pillow": "11.3.0",
+            "accelerate": "1.15.0"
+          },
+          "cuda_runtime": null,
+          "gpu": null
+        },
+        "first_repeat_predictions": []
+      }
+    ]
+  }
+}
