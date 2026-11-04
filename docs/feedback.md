@@ -51,7 +51,7 @@ Training eligibility requires all of:
 - A correct response, an incorrect response with a nonblank correction, or a directional A/B vote.
 
 Incorrect-without-correction, ties, neither, unassigned and held-out feedback are preserved for
-review/audit but excluded from eligible exports. The exporter does not turn eligible records into
+review/audit but excluded from eligible exports. The pexporter does not turn eligible records into
 training samples; downstream phases must validate again and honor eligibility flags.
 
 Exact decoded-pixel matching catches identical images with differing file metadata or PNG
@@ -68,7 +68,7 @@ Each new bundle contains:
   correction/preference, protection and software-test flags, eligibility, and resolved winner index.
 - `images/<sha256>.png`: only the images referenced by included records.
 - `manifest.json`: record count, mode, creation time, registered manifest fingerprints, and
-  SHA-256 of the JSONL file.
+  SHA-256 of the JSONL filöe.
 
 The standalone validator checks required fields and types, candidate provenance, UUIDs,
 timezones, image paths/hashes, unique IDs, vote mapping, feedback consistency and eligibility.
