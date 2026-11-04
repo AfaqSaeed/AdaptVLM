@@ -1,8 +1,15 @@
-# AdaptVLM — Phases 1–3
+# AdaptVLM — Phases 1–6
 
 A local, configurable VLM inference app and reproducible short-answer baseline evaluator.
-Phases 1–3 provide baseline inference/evaluation, human feedback collection, and correction-driven
-LoRA adaptation with matched before/after reports. DPO and efficiency research remain deferred.
+Phases 1–5 provide baseline inference/evaluation, human feedback collection, correction-driven
+LoRA adaptation, experimental multimodal DPO, and controlled efficiency benchmarking.
+Phase 6 provides the [research report](reports/research-report.md), including measured software
+validation, failure analysis, limitations and a reproducible protocol for future research.
+Real-data adaptation gains and full-model efficiency remain unmeasured.
+
+![AdaptVLM architecture](docs/assets/adaptvlm-architecture.png)
+
+[Architecture SVG](docs/assets/adaptvlm-architecture.svg)
 
 ## Install (Python 3.11+)
 
@@ -85,7 +92,7 @@ first-run default. Preserve the dataset manifest, image files and dependency ver
 is Apache-2.0 and is the practical low-memory starting point; capability must be measured.
 [Qwen2.5-VL-3B](https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct) is an optional larger baseline;
 check the license at the exact checkpoint revision before use or redistribution. Its unquantized
-weights plus image activations are unsuitable for the detected 4 GB GPU. Quantization remains unsupported; Phase 3 adds adapter loading and SmolVLM LoRA training. Arbitrary VLM architectures are deliberately rejected;
+weights plus image activations are unsuitable for the detected 4 GB GPU. Phase 3 adds adapter loading and SmolVLM LoRA training; Phase 5 adds inference-only quantization. Arbitrary VLM architectures are deliberately rejected;
 processor compatibility must be implemented and tested explicitly. Phase 3 tests assistant-only
 masking for its supported SFT path; future multimodal DPO needs separate compatibility checks.
 
@@ -131,7 +138,7 @@ python scripts/manage_feedback.py feedback-validate --output data/exports/eligib
 
 Use a new directory for each export. Audit exports contain held-out and otherwise ineligible
 records and **must not be passed to training**. Eligible exports contain validated raw feedback,
-not SFT/DPO training examples; Phase 3 converts human corrections into SFT data; preference conversion remains deferred.
+not SFT/DPO training examples; Phase 3 converts human corrections into SFT data; Phase 4 converts directional votes into DPO pairs.
 
 See [feedback design and data rules](docs/feedback.md) and
 [Phase 2 verification](docs/phase2-verification.md).
@@ -160,7 +167,7 @@ These are real-model commands, not mock demonstrations. They require downloaded 
 genuine eligible corrections and adequate compute. The default CPU float32 config works with
 the code path but may be slow; CUDA requires a CUDA-enabled PyTorch installation. Use float32
 or supported CUDA bfloat16 for training. FP16 training, QLoRA, Qwen training, adapter resuming,
-and DPO are explicitly unsupported. Freeze hyperparameters before running the test split.
+and SFT-adapter continuation into DPO are explicitly unsupported. Freeze hyperparameters before running the test split.
 
 The comparison writes `baseline.json`, `adapted.json` and `comparison.json`, including category
 changes and improved/degraded predictions. It runs models sequentially, uses identical settings,
@@ -170,3 +177,87 @@ For adapted single-image inference or the app, use `configs/adapted.example.yaml
 its `adapter_path` to your completed run. It loads the original base plus the separate adapter;
 base weights are never copied into the adapter output. See [SFT design and limits](docs/sft.md)
 and [Phase 3 verification](docs/phase3-verification.md).
+
+
+## Phase 4: experimental multimodal DPO
+
+```powershell
+python -m pip install -e ".[dev,app,model,training,dpo]"
+python scripts/train_dpo.py --check-only --output reports/dpo-compatibility.json
+python scripts/prepare_preferences.py --feedback data/exports/eligible-002 --protected-manifest data/vqa-small/manifest.json --output data/preferences-001
+python scripts/train_dpo.py --data data/preferences-001 --model-config configs/model.yaml --training-config configs/dpo.yaml --protected-manifest data/vqa-small/manifest.json --output outputs/dpo-run-001
+python scripts/compare_adapter.py --adapter outputs/dpo-run-001 --config configs/model.yaml --manifest data/vqa-small/manifest.json --split test --output reports/dpo-evaluation-001
+```
+
+Preference input must contain actual human A/B votes on distinct responses. Corrections, ties,
+neither, mock feedback and held-out images never become DPO pairs. The trainer uses pinned TRL
+0.16.1 with real image tensors and the frozen instructed base as reference. It starts a fresh
+LoRA adapter, not an SFT continuation. A static check is not proof that a full checkpoint fits
+in memory; the executed CPU evidence uses a miniature random model.
+
+For SFT-versus-DPO comparison, first collect both corrections and genuine pair votes for matched
+training image/questions in one eligible export, and align training budgets/configurations:
+
+```powershell
+python scripts/compare_methods.py --sft-adapter outputs/sft-run-001 --dpo-adapter outputs/dpo-run-001 --config configs/model.yaml --manifest data/vqa-small/manifest.json --split test --output reports/method-comparison-001
+```
+
+This command writes a limitation report and exits with code 2 if training coverage, provenance,
+base checkpoint or budget does not match. Defaults for SFT and DPO have different accumulation
+settings, so deliberately align these before a method comparison. Learning rates may differ
+when chosen through validation; both are reported. No test-driven tuning or superiority claim
+is automated. Older Phase 3 adapters without explicit method/coverage metadata require a new
+training run for this guarded comparison, but still work with `compare_adapter.py`.
+
+See [DPO design and limits](docs/dpo.md) and [Phase 4 verification](docs/phase4-verification.md).
+
+
+## Phase 5: efficiency experiments
+
+```powershell
+python -m pip install -e ".[dev,app,model,training,dpo,benchmark]"
+python scripts/benchmark.py --config configs/benchmark.yaml --output reports/efficiency-001
+python scripts/launch_experiments.py --reports reports
+```
+
+The default suite compares CPU float32 and dynamic-int8 inference on the bundled **synthetic
+software fixture**, not a research benchmark. Use a prepared real held-out manifest for research.
+`configs/benchmark-adapters.example.yaml` covers baseline, adapter, quantized baseline and
+quantized adapter; set the real dataset/adapter paths first. Dynamic int8 merges adapters before
+quantizing language-model linear layers. Vision layers remain floating point.
+
+CUDA experiments use `configs/benchmark-cuda.example.yaml` and the optional `.[quantization]`
+extra (bitsandbytes 0.45.5). They require a suitable GPU and CUDA-enabled PyTorch. Unsupported
+configurations are recorded explicitly; they never silently become unquantized measurements.
+CUDA quantization is implemented but not hardware-verified here. Training with quantized models
+remains unsupported.
+
+Each suite runs configurations sequentially in separate processes, with the same held-out data,
+generation settings, thread count and seeded example order. Reports separate warm-up from
+measurement and include median/P95 request latency, throughput, scores/failures, GPU allocation
+when available, serialized state size, model load time and recorded adapter training time.
+`benchmark.json`, per-variant samples, worker logs, CSV and three PNG plots are saved together.
+CLI exit code 2 indicates at least one failed/unsupported/partial variant; inspect the report.
+The model-free dashboard runs at localhost:7861 and shows measurements, plots and provenance.
+
+CPU GPU-memory values are null. Serialized state size is not RAM usage. Repeated synthetic
+predictions are not independent accuracy evidence, and no automatic speedup claim is made.
+See [benchmark methodology](docs/benchmarking.md) and [Phase 5 verification](docs/phase5-verification.md).
+
+## Phase 6: research report
+
+The [report](reports/research-report.md) covers research questions, datasets, methods, baselines,
+observed results, proposed ablations, failures and reproducibility. It distinguishes executed
+software checks from experiments that still require genuine feedback, public data and full weights.
+The [evidence snapshot](reports/evidence/phase6-evidence.json) records measured values, source
+hashes, environment details and the passing 65-test validation run.
+
+To extract a new evidence snapshot after running tests and a synthetic benchmark:
+
+```powershell
+python -m pytest -q --junitxml=reports/phase6-validation.xml
+python scripts/build_report_evidence.py --benchmark reports/phase5-tiny-smoke/benchmark.json --junit reports/phase6-validation.xml --output reports/evidence/new-evidence.json
+```
+
+Use your own benchmark path; generated raw runs are not committed. See the report for a tiny
+checkpoint reproduction procedure and [Phase 6 verification](docs/phase6-verification.md).
