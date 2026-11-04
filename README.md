@@ -1,9 +1,9 @@
-# AdaptVLM — Phases 1–6
+# AdaptVLM 
 
 A local, configurable VLM inference app and reproducible short-answer baseline evaluator.
 Phases 1–5 provide baseline inference/evaluation, human feedback collection, correction-driven
 LoRA adaptation, experimental multimodal DPO, and controlled efficiency benchmarking.
-Phase 6 provides the [research report](reports/research-report.md), including measured software
+Part 6 provides the [research report](reports/research-report.md), including measured software
 validation, failure analysis, limitations and a reproducible protocol for future research.
 Real-data adaptation gains and full-model efficiency remain unmeasured.
 
@@ -53,10 +53,6 @@ ruff check .
 
 ## Dataset and scoring
 
-The four bundled shape images are **synthetic software fixtures, not research evidence**.
-The default report is therefore marked `software_test_only`, even with real model weights.
-Mock runs are always marked the same way. Nothing reports mock accuracy as model quality.
-
 For real evaluation, obtain official VQAv2 questions, annotations and COCO images from
 [VisualQA](https://visualqa.org/download.html), respecting its
 [annotation terms](https://visualqa.org/terms.html) (CC BY 4.0) and the separate
@@ -77,8 +73,7 @@ contamination are not detected. Small sample results do not establish generaliza
 Reports contain dataset/image hashes, model configuration and resolved model commit, seed,
 software/hardware information, per-example answers/failures, category scores, load time,
 latency and peak allocated CUDA memory (null on CPU). Categories preserve source question types.
-Scoring uses exact and conservative normalized short-answer reference matching, **not official
-VQA consensus accuracy**. It is unsuitable for judging unrestricted prose; inspect predictions
+Scoring uses exact and conservative normalized short-answer reference matching, . It is unsuitable for judging unrestricted prose; inspect predictions
 and failure cases. The default prompt requests short answers. There is no LLM judge.
 Latency includes processing and decoding, excludes loading, and includes the cold first request.
 This is baseline instrumentation, not a speedup benchmark. CUDA memory is allocated peak, not
